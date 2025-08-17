@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>স্বাগতম!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container welcome-container">
+    <div class="card">
+        <h1>আমার ওয়েবসাইটে স্বাগতম</h1>
+        <p>আপনার অ্যাকাউন্ট না থাকলে নিবন্ধন করুন, অথবা থাকলে লগইন করুন।</p>
+        <div class="btn-group">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">নিবন্ধন করুন</a>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">লগইন করুন</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+	

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নিবন্ধন করুন</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <h2>নিবন্ধন করুন</h2>
+        <div class="message-container" id="message-container"></div>
+        <form id="registerForm">
+            <div class="input-group">
+                <label for="name">পুরো নাম</label>
+                <input type="text" id="name" name="name" placeholder="আপনার পুরো নাম" required>
+            </div>
+            <div class="input-group">
+                <label for="email">ইমেইল</label>
+                <input type="email" id="email" name="email" placeholder="আপনার ইমেইল" required>
+            </div>
+            <div class="input-group">
+                <label for="password">পাসওয়ার্ড</label>
+                <input type="password" id="password" name="password" placeholder="কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                নিবন্ধন করুন
+                <div class="spinner hidden" id="spinner"></div>
+            </button>
+        </form>
+        <p class="link-text">
+            ইতিমধ্যে একটি অ্যাকাউন্ট আছে? <a href="{{ url_for('login') }}">লগইন করুন</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const spinner = document.getElementById('spinner');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageContainer = document.getElementById('message-container');
+
+        spinner.classList.remove('hidden');
+        submitBtn.disabled = true;
+        messageContainer.innerHTML = '';
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                messageContainer.innerHTML = `<p class="flash-message success">${data.message}</p>`;
+                setTimeout(() => {
+                    window.location.href = "{{ url_for('login') }}";
+                }, 1500);
+            } else {
+                messageContainer.innerHTML = `<p class="flash-message error">${data.message}</p>`;
+            }
+        })
+        .catch(error => {
+            messageContainer.innerHTML = `<p class="flash-message error">An error occurred. Please try again.</p>`;
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            spinner.classList.add('hidden');
+            submitBtn.disabled = false;
+        });
+    });
+</script>
+</body>
+</html>

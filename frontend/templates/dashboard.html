@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ড্যাশবোর্ড</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container dashboard-container">
+        <header>
+            <nav>
+                <a href="{{ url_for('logout') }}" class="btn btn-secondary">লগআউট</a>
+            </nav>
+        </header>
+        <main class="profile-card">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-pic">
+            <h2 class="user-name">স্বাগতম, {{ user.name }}!</h2>
+            <div class="profile-details">
+                <p><strong>ইমেইল:</strong> {{ user.email }}</p>
+                <p><strong>রেফারেল কোড:</strong> {{ user.referral_code }}</p>
+            </div>
+            <a href="#" class="btn btn-primary">প্রোফাইল এডিট করুন</a>
+        </main>
+    </div>
+</body>
+</html>
